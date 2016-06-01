@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./szablon.xhtml">
+
+            <ui:define name="content">
+                <h:form rendered="#{logowanie.zalogowany}">
+                    <div align="right">
+                        <p:commandButton value="Usuń konto" actionListener="#{logowanie.usunKonto}" oncomplete="pageRefresh()" />
+                    </div>
+                    <h1>Twoje rezerwacje:</h1>
+                    <br></br>
+                    <p:dataTable var="kurs" value="#{logowanie.klient.kursy}">
+                        <p:column headerText="Dzień">
+                            <h:outputText value="#{kurs.dzienString}" />
+                        </p:column>
+
+                        <p:column headerText="Godzina">
+                            <h:outputText value="#{kurs.godzina}" />
+                        </p:column>
+
+                        <p:column headerText="Kierunek">
+                            <h:outputText value="#{kurs.kierunek}" />
+                        </p:column>
+                        <p:column headerText="Usuń">
+                            <p:commandButton action="#{rezerwacja.usun(kurs)}" value="Usuń" oncomplete="pageRefresh()"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <script>
+                    function pageRefresh() {
+                        location.reload();
+                    }
+                </script>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

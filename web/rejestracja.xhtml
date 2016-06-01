@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Rejestracja</title>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="./szablon.xhtml">
+
+            <ui:define name="content">
+                <div align="center">
+                    <h:form>
+                        <h:panelGrid columns="3" frame='box'>
+                            <f:facet name="header">
+                                <p:outputLabel value="Rejestracja w serwisie"/>
+                            </f:facet>
+
+                            <p:outputLabel value="Imię:" />
+                            <h:inputText id="imie" value="#{rejestracja.klient.imie}" required="true" requiredMessage="trza wpisac"/>
+                            <h:message for="imie" />
+
+                            <p:outputLabel value="Nazwisko:" />
+                            <h:inputText id="nazwisko" value="#{rejestracja.klient.nazwisko}" />
+                            <h:message for="nazwisko" />
+
+                            <p:outputLabel value="Email:" />
+                            <h:inputText id="email" value="#{rejestracja.klient.email}"/>
+                            <h:message for="email" />
+
+                            <p:outputLabel value="Hasło:" />
+                            <h:inputSecret id="haslo" value="#{rejestracja.klient.haslo}" />
+                            <h:message for="haslo" style="color: crimson"/>
+
+                            <p:commandButton action="#{rejestracja.zarejestruj()}" value="Dodaj" />
+                        </h:panelGrid>
+                        <h:messages globalOnly="true"/>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+
+

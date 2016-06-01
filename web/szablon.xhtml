@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>SKM Bus</title>
+    </h:head>
+
+    <h:body>
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <div align="right" id="loginButtons">
+                    <h:form rendered="#{logowanie.zalogowany}" > 
+                        <p:commandButton actionListener="#{logowanie.wyloguj}" value="Wyloguj" oncomplete="loginButtonRefresh()" />
+                    </h:form>
+                    <h:form rendered="#{!logowanie.zalogowany}">
+                        <p:commandButton value="Zaloguj" onclick="PF('dlg').show();" />
+                        <p:commandButton action="rejestracja" value="Zarejestruj" />   
+                    </h:form>
+                </div>
+                <h:form>
+                    <p:growl id="growl" sticky="true" showDetail="true" life="2000" />
+                    <p:dialog header="Login" widgetVar="dlg" resizable="false">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="email" value="Email:" />
+                            <p:inputText id="email" value="#{logowanie.klient.email}" required="true" label="Email" />
+
+                            <h:outputLabel for="password" value="Password:" />
+                            <p:password id="password" value="#{logowanie.klient.haslo}" required="true" label="password" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Login" update="growl" actionListener="#{logowanie.zaloguj}"
+                                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+                            </f:facet>  
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <script type="text/javascript">
+                    function handleLoginRequest(xhr, status, args) {
+                        if (args.validationFailed || !args.loggedIn) {
+                            PF('dlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+                            PF('dlg').hide();
+                            $('#loginLink').fadeOut();
+                            $("#loginButtons").load(location.href + " #loginButtons>*", "");
+                        }
+                    }
+                    function loginButtonRefresh() {
+                        location.reload();
+                        $("#loginButtons").load(location.href + " #loginButtons>*", "");
+                    }
+                </script>
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="Strona główna" outcome="index" icon="ui-icon-home"/>
+                            <p:menuitem value="Rozkład" outcome="rozklad" icon="ui-icon-search"/>
+                            <p:menuitem value="Moje konto" outcome="konto" icon="ui-icon-wrench"/>
+                        </p:menu>
+                    </h:form>
+                </ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>
