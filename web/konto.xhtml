@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -12,7 +13,7 @@
             <ui:define name="content">
                 <h:form rendered="#{logowanie.zalogowany}">
                     <div align="right">
-                        <p:commandButton value="Usuń konto" actionListener="#{logowanie.usunKonto}" oncomplete="pageRefresh()" />
+                        <p:commandLink value="Usuń konto" onclick="PF('confirmdlg').show();" />
                     </div>
                     <h1>Twoje rezerwacje:</h1>
                     <br></br>
@@ -32,6 +33,20 @@
                             <p:commandButton action="#{rezerwacja.usun(kurs)}" value="Usuń" oncomplete="pageRefresh()"/>
                         </p:column>
                     </p:dataTable>
+                </h:form>
+                <h:form>
+                    <p:growl id="growl" sticky="true" showDetail="true" life="2000" />
+                    <p:dialog header="Potwierdź usunięcie konta" widgetVar="confirmdlg" resizable="false">
+                        <h:panelGrid >
+                            <h:outputText value="Czy na pewno chcesz usunąć konto?" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Tak" update="growl" actionListener="#{logowanie.usunKonto}"
+                                                 oncomplete="pageRefresh()" />
+                                <p:commandButton value="Nie" update="growl" onclick="pageRefresh()" />
+                            </f:facet>  
+                        </h:panelGrid>
+                    </p:dialog>
                 </h:form>
                 <script>
                     function pageRefresh() {

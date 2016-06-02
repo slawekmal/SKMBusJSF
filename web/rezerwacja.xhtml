@@ -12,17 +12,18 @@
 
             <ui:define name="content">
                 <div align="center">
-                    <h:form>
-                        <h:panelGrid columns="3" frame='box'>
+                    <h:form rendered="#{logowanie.zalogowany}">
+                        <h:panelGrid columns="3">
                             <f:facet name="header">
-                                <p:outputLabel value="Wybrałeś kurs #{rezerwacja.wybranyKurs}. Uzupełnij resztę informacji"/>
+                                <p:outputLabel value="Wybrałeś/aś kurs #{rezerwacja.wybranyKurs}. Uzupełnij resztę informacji"/>
                             </f:facet>
 
                             <p:outputLabel value="Ilość miejsc:" />
-                            <p:spinner id="miejsca" value="#{rezerwacja.miejsca}" required="true" requiredMessage="Wybierz ilość miejsc"/>
+                            <p:spinner id="miejsca" value="#{rezerwacja.miejsca}" min="1" max="#{rezerwacja.wybranyKurs.miejsca}"
+                                       required="true" requiredMessage="Wybierz ilość miejsc" validatorMessage="Brak tylu wolnych miejsc!"/>
                             <p:message for="miejsca" />
 
-                            <p:commandButton action="#{rezerwacja.rezerwuj()}" value="Rezerwuj" />
+                            <p:commandButton action="#{rezerwacja.rezerwuj}" value="Rezerwuj" />
                         </h:panelGrid>
                         <h:messages globalOnly="true"/>
                     </h:form>

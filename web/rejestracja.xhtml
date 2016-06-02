@@ -17,9 +17,9 @@
             <ui:define name="content">
                 <div align="center">
                     <h:form>
-                        <h:panelGrid columns="3" frame='box'>
+                        <h:panelGrid columns="3">
                             <f:facet name="header">
-                                <p:outputLabel value="Rejestracja w serwisie"/>
+                                <p:outputLabel value="Rejestracja w serwisie" />
                             </f:facet>
 
                             <p:outputLabel value="Imię:" />
@@ -38,7 +38,8 @@
                             <h:inputSecret id="haslo" value="#{rejestracja.klient.haslo}" />
                             <h:message for="haslo" style="color: crimson"/>
 
-                            <p:commandButton action="#{rejestracja.zarejestruj()}" value="Dodaj" />
+                            <p:outputLabel value="" />
+                            <p:commandButton action="#{rejestracja.zarejestruj()}" value="Dodaj"/>
                         </h:panelGrid>
                         <h:messages globalOnly="true"/>
                     </h:form>

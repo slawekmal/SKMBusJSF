@@ -27,6 +27,7 @@ public class Rezerwacja implements Serializable {
     private BusRequest br;
 
     private List<Kurs> rozklad;
+    private String wybranyKierunek;
     private Kurs wybranyKurs;
     private int miejsca;
 
@@ -36,6 +37,14 @@ public class Rezerwacja implements Serializable {
     }
 
     public Rezerwacja() {
+    }
+
+    public String getWybranyKierunek() {
+        return wybranyKierunek;
+    }
+
+    public void setWybranyKierunek(String wybranyKierunek) {
+        this.wybranyKierunek = wybranyKierunek;
     }
 
     public Kurs getWybranyKurs() {
@@ -81,7 +90,7 @@ public class Rezerwacja implements Serializable {
                     Logowanie.klient.getKursy().add(wybranyKurs);
                 }
                 br.updateKlient(Logowanie.klient);
-                return "konto";
+                return "konto?faces-redirect=true";
             }
         }
         return "rezerwacja";
@@ -92,5 +101,13 @@ public class Rezerwacja implements Serializable {
             br.updateKlient(Logowanie.klient);
         }
         return "konto";
+    }
+    
+    public String wybierzRozklad(){
+        if(!this.wybranyKierunek.isEmpty() && !this.wybranyKierunek.equalsIgnoreCase("Wszystkie"))
+            rozklad = br.findKursByKierunek(wybranyKierunek);
+        else
+            rozklad = br.getAllKurs();
+        return "rozklad";
     }
 }

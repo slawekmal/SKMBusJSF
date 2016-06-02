@@ -33,7 +33,7 @@ public class Klient implements Serializable {
     @NotEmpty(message = "Pole nie może być puste")
     private String haslo;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "kurs_klient", joinColumns = @JoinColumn(name = "klient_id"), inverseJoinColumns = @JoinColumn(name = "kurs_id"))
     private List<Kurs> kursy;
 

@@ -2,9 +2,11 @@
 #top {
     position: relative;
     background-color: #036fab;
+    background-image: url(../images/Bus.png);
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
+    height: 100px;
 }
 
 #bottom {
@@ -16,7 +18,7 @@
 
 #left {
     float: left;
-    background-color: #ece3a5;
+    background-color: #CCCCFF;
     padding: 5px;
     width:fit-content
 }
@@ -30,12 +32,12 @@
 
 .center_content {
     position: relative;
-    background-color: #dddddd;
-    padding: 5px;
+    background-color: #CCCCFF;
+    padding: 5px;   
 }
 
 .left_content {
-    background-color: #dddddd;
+    background-color: #CCCCFF;
     padding: 5px;
     margin-left: 200px;
 }
@@ -58,4 +60,6 @@
   text-decoration : underline;
 }
 
-
+#loginButtons {
+    margin-top: 70px;
+}

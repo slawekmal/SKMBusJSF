@@ -72,4 +72,10 @@ public class BusRequest {
         Query query = em.createQuery("SELECT k FROM Kurs k");
         return (List<Kurs>) query.getResultList();
     }
+    
+    public List<Kurs> findKursByKierunek(String kierunek){
+        Query query = em.createQuery("SELECT k FROM Kurs k WHERE k.kierunek = :kierunek");
+        query.setParameter("kierunek", kierunek);
+        return (List<Kurs>) query.getResultList();
+    }
 }
