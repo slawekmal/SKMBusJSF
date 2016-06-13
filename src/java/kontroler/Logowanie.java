@@ -15,8 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import model.Klient;
 import org.primefaces.context.RequestContext;
-import db.BusRequest;
 import java.io.Serializable;
+import spring.db.KlientService;
 
 /**
  *
@@ -29,7 +29,7 @@ public class Logowanie implements Serializable {
     public static Klient klient;
     public static boolean zalogowany;
     @EJB
-    private BusRequest br;
+    private KlientService klientService;
 
     @PostConstruct
     public void init() {
@@ -58,12 +58,12 @@ public class Logowanie implements Serializable {
     public void zaloguj(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
-        List<Klient> listaKlientow = br.getAllKlient();
+        List<Klient> listaKlientow = klientService.listKlient();
         int i;
         for (i = 0; i < listaKlientow.size(); i++) {
             if (listaKlientow.get(i).getEmail().equals(klient.getEmail()) && listaKlientow.get(i).getHaslo().equals(klient.getHaslo())) {
                 Logowanie.zalogowany = true;
-                klient = br.findKlientByEmail(klient.getEmail());
+                klient = klientService.findKlientByEmail(klient.getEmail());
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Witaj", listaKlientow.get(i).getImie());
                 break;
             }
@@ -84,9 +84,9 @@ public class Logowanie implements Serializable {
     }
 
     public void usunKonto(ActionEvent event) {
-        if(zalogowany){
+        if (zalogowany) {
             zalogowany = false;
-            this.br.deleteKlient(klient);
+            this.klientService.deleteKlient(klient);
             RequestContext context = RequestContext.getCurrentInstance();
             FacesMessage message;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usunięto", klient.getImie());

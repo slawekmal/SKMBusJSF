@@ -9,10 +9,9 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import model.Klient;
-import db.BusRequest;
+import spring.db.KlientService;
 
 /**
  *
@@ -24,7 +23,7 @@ public class Rejestracja implements Serializable {
 
     private Klient klient;
     @EJB
-    private BusRequest br;
+    private KlientService klientService;
 
     public Klient getKlient() {
         return klient;
@@ -41,7 +40,7 @@ public class Rejestracja implements Serializable {
 
     public String zarejestruj() {
         if (this.klient != null) {
-            br.createKlient(this.klient);
+            klientService.createKlient(this.klient);
             return "index";
         }
         else

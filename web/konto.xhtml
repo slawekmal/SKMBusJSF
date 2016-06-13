@@ -15,9 +15,11 @@
                     <div align="right">
                         <p:commandLink value="Usuń konto" onclick="PF('confirmdlg').show();" />
                     </div>
-                    <h1>Twoje rezerwacje:</h1>
+                    <h1>Zarezerwowane miejsca:</h1>
                     <br></br>
-                    <p:dataTable var="kurs" value="#{logowanie.klient.kursy}">
+                    <label id="koszt">Łączny koszt: #{logowanie.klient.kursy.size() * 17} zł </label>
+                    <br></br>
+                    <p:dataTable var="kurs" value="#{logowanie.klient.kursy}" sortBy="#{kurs.id}">
                         <p:column headerText="Dzień">
                             <h:outputText value="#{kurs.dzienString}" />
                         </p:column>

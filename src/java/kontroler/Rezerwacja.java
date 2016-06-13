@@ -11,9 +11,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import model.Kurs;
+import spring.db.KlientService;
+import spring.db.KursService;
 
 /**
  *
@@ -24,7 +25,9 @@ import model.Kurs;
 public class Rezerwacja implements Serializable {
 
     @EJB
-    private BusRequest br;
+    private KursService kursService;
+    @EJB
+    private KlientService klientService;
 
     private List<Kurs> rozklad;
     private String wybranyKierunek;
@@ -33,7 +36,7 @@ public class Rezerwacja implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.rozklad = br.getAllKurs();
+        this.rozklad = kursService.listKurs();
     }
 
     public Rezerwacja() {
@@ -78,18 +81,19 @@ public class Rezerwacja implements Serializable {
         this.wybranyKurs.setId(kurs.getId());
         this.wybranyKurs.setKierunek(kurs.getKierunek());
         this.wybranyKurs.setMiejsca(kurs.getMiejsca());
-        return "rezerwacja";
+        return "rezerwacja?faces-redirect=true";
     }
 
     public String rezerwuj() {
         if (Logowanie.zalogowany) {
             if (wybranyKurs.getMiejsca() >= miejsca) {
                 wybranyKurs.setMiejsca(wybranyKurs.getMiejsca() - miejsca);
-                br.updateKurs(wybranyKurs);
+                kursService.updateKurs(wybranyKurs);
                 for (int i = 0; i < miejsca; i++) {
                     Logowanie.klient.getKursy().add(wybranyKurs);
                 }
-                br.updateKlient(Logowanie.klient);
+                klientService.updateKlient(Logowanie.klient);
+                this.rozklad = kursService.listKurs();
                 return "konto?faces-redirect=true";
             }
         }
@@ -98,16 +102,16 @@ public class Rezerwacja implements Serializable {
     public String usun(Kurs kurs){
         if(Logowanie.zalogowany){
             Logowanie.klient.getKursy().remove(kurs);
-            br.updateKlient(Logowanie.klient);
+            klientService.updateKlient(Logowanie.klient);
         }
         return "konto";
     }
     
     public String wybierzRozklad(){
         if(!this.wybranyKierunek.isEmpty() && !this.wybranyKierunek.equalsIgnoreCase("Wszystkie"))
-            rozklad = br.findKursByKierunek(wybranyKierunek);
+            rozklad = kursService.findKursByKierunek(wybranyKierunek);
         else
-            rozklad = br.getAllKurs();
+            rozklad = kursService.listKurs();
         return "rozklad";
     }
 }

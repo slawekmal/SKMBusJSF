@@ -15,7 +15,9 @@
                     <h:form rendered="#{logowanie.zalogowany}">
                         <h:panelGrid columns="3">
                             <f:facet name="header">
-                                <p:outputLabel value="Wybrałeś/aś kurs #{rezerwacja.wybranyKurs}. Uzupełnij resztę informacji"/>
+                                <p:outputLabel value="Wybrałeś kurs: #{rezerwacja.wybranyKurs}. Cena jednego biletu to 17 zł.
+                                            Opłata za przejazd uiszczana jest podczas faktycznego zakupu biletu
+                                            u kierowcy."/>
                             </f:facet>
 
                             <p:outputLabel value="Ilość miejsc:" />
@@ -23,7 +25,7 @@
                                        required="true" requiredMessage="Wybierz ilość miejsc" validatorMessage="Brak tylu wolnych miejsc!"/>
                             <p:message for="miejsca" />
 
-                            <p:commandButton action="#{rezerwacja.rezerwuj}" value="Rezerwuj" />
+                            <p:commandButton action="#{rezerwacja.rezerwuj}" value="Rezerwuj"/>
                         </h:panelGrid>
                         <h:messages globalOnly="true"/>
                     </h:form>

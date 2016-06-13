@@ -40,8 +40,9 @@
                             <h:outputText value="#{kurs.miejsca}" />
                         </p:column>
                         <p:column headerText="Rezerwuj" >
-                            <p:commandButton value = "Wybierz" action="#{rezerwacja.wybierzKurs(kurs)}" rendered="#{logowanie.zalogowany}"/>
-                            <p:outputLabel value="Zaloguj się by móc rezerwować miejsca" rendered="#{!logowanie.zalogowany}"/>
+                            <p:commandButton id="wybKurs" value = "Rezerwuj" action="#{rezerwacja.wybierzKurs(kurs)}" rendered="#{logowanie.zalogowany and (kurs.miejsca gt 0)}"/>
+                            <p:outputLabel value="Zaloguj się by móc rezerwować miejsca" rendered="#{!logowanie.zalogowany and (kurs.miejsca gt 0)}"/>
+                            <p:outputLabel value="Brak miejsc" rendered="#{kurs.miejsca le 0}" />
                         </p:column>
                     </p:dataTable>
                 </h:form>

@@ -27,3 +27,13 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
+
+#loginButtons {
+    margin-top: 70px;
+}
+
+#koszt {
+    color: teal;
+    font-weight: bold; 
+    margin-left: 50px;
+}
