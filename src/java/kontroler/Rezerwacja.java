@@ -5,7 +5,6 @@
  */
 package kontroler;
 
-import db.BusRequest;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -13,8 +12,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.Kurs;
-import spring.db.KlientService;
-import spring.db.KursService;
+import db.KlientService;
+import db.KursService;
 
 /**
  *

@@ -17,29 +17,31 @@
             <ui:define name="content">
                 <div align="center">
                     <h:form>
-                        <h:panelGrid columns="3">
+                        <h:panelGrid id="reg" columns="3" >
                             <f:facet name="header">
                                 <p:outputLabel value="Rejestracja w serwisie" />
                             </f:facet>
 
                             <p:outputLabel value="Imię:" />
-                            <h:inputText id="imie" value="#{rejestracja.klient.imie}" required="true" requiredMessage="trza wpisac"/>
-                            <h:message for="imie" />
+                            <h:inputText id="imie" value="#{rejestracja.klient.imie}" />
+                            <p:message for="imie" styleClass="error" />
 
                             <p:outputLabel value="Nazwisko:" />
                             <h:inputText id="nazwisko" value="#{rejestracja.klient.nazwisko}" />
-                            <h:message for="nazwisko" />
+                            <p:message for="nazwisko" styleClass="error"/>
 
                             <p:outputLabel value="Email:" />
                             <h:inputText id="email" value="#{rejestracja.klient.email}"/>
-                            <h:message for="email" />
+                            <p:message for="email" styleClass="error"/>
 
                             <p:outputLabel value="Hasło:" />
                             <h:inputSecret id="haslo" value="#{rejestracja.klient.haslo}" />
-                            <h:message for="haslo" style="color: crimson"/>
-
-                            <p:outputLabel value="" />
-                            <p:commandButton action="#{rejestracja.zarejestruj()}" value="Dodaj"/>
+                            <p:message for="haslo" styleClass="error"/>
+                            <f:facet name="footer" >
+                                <h:panelGroup style="display:block; text-align:center">
+                                    <p:commandButton type="submit" update="reg" action="#{rejestracja.zarejestruj()}" value="Zarejestruj"/>
+                                </h:panelGroup>
+                            </f:facet>
                         </h:panelGrid>
                     </h:form>
                 </div>

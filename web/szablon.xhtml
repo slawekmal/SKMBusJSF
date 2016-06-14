@@ -22,22 +22,23 @@
                     </h:form>
                     <h:form rendered="#{!logowanie.zalogowany}">
                         <p:commandButton value="Zaloguj" onclick="PF('dlg').show();" />
-                        <p:commandButton action="rejestracja" value="Zarejestruj" />   
+                        <p:button outcome="rejestracja" value="Zarejestruj" />   
                     </h:form>
                 </div>
                 <h:form>
-                    <p:growl id="growl" sticky="true" showDetail="true" life="2000" />
-                    <p:dialog header="Login" widgetVar="dlg" resizable="false">
-                        <h:panelGrid columns="2" cellpadding="5">
+                    <p:dialog header="Logowanie do serwisu" widgetVar="dlg" resizable="false">
+                        <h:panelGrid id="log" columns="3" cellpadding="5">
                             <h:outputLabel for="email" value="Email:" />
-                            <p:inputText id="email" value="#{logowanie.klient.email}" required="true" label="Email" />
-
-                            <h:outputLabel for="password" value="Password:" />
-                            <p:password id="password" value="#{logowanie.klient.haslo}" required="true" label="password" />
-
+                            <p:inputText id="email" value="#{logowanie.klient.email}" required="true" requiredMessage="Podaj email" label="Email" />
+                            <p:message for="email" styleClass="error"/>
+                            <h:outputLabel for="password" value="Hasło:" />
+                            <p:password id="password" value="#{logowanie.klient.haslo}" required="true" requiredMessage="Podaj hasło" label="password" />
+                            <p:message for="password" styleClass="error"/>
                             <f:facet name="footer">
-                                <p:commandButton value="Login" update="growl" actionListener="#{logowanie.zaloguj}"
-                                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+                                <h:panelGroup style="display:block; text-align:center">
+                                    <p:commandButton value="Login" update="log" actionListener="#{logowanie.zaloguj}"
+                                                     oncomplete="handleLoginRequest(xhr, status, args)" />
+                                </h:panelGroup>
                             </f:facet>  
                         </h:panelGrid>
                     </p:dialog>

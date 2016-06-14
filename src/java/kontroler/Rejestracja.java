@@ -9,16 +9,16 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import model.Klient;
-import spring.db.KlientService;
+import db.KlientService;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author SKM
  */
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class Rejestracja implements Serializable {
 
     private Klient klient;
@@ -41,7 +41,7 @@ public class Rejestracja implements Serializable {
     public String zarejestruj() {
         if (this.klient != null) {
             klientService.createKlient(this.klient);
-            return "index";
+            return "index?faces-redirect=true";
         }
         else
             return "rejestracja";

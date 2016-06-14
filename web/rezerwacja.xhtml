@@ -16,18 +16,20 @@
                         <h:panelGrid columns="3">
                             <f:facet name="header">
                                 <p:outputLabel value="Wybrałeś kurs: #{rezerwacja.wybranyKurs}. Cena jednego biletu to 17 zł.
-                                            Opłata za przejazd uiszczana jest podczas faktycznego zakupu biletu
-                                            u kierowcy."/>
+                                               Opłata za przejazd uiszczana jest podczas faktycznego zakupu biletu
+                                               u kierowcy."/>
                             </f:facet>
 
                             <p:outputLabel value="Ilość miejsc:" />
-                            <p:spinner id="miejsca" value="#{rezerwacja.miejsca}" min="1" max="#{rezerwacja.wybranyKurs.miejsca}"
+                            <p:spinner id="miejsca" value="#{rezerwacja.miejsca}"  min="1" max="#{rezerwacja.wybranyKurs.miejsca}"
                                        required="true" requiredMessage="Wybierz ilość miejsc" validatorMessage="Brak tylu wolnych miejsc!"/>
                             <p:message for="miejsca" />
-
-                            <p:commandButton action="#{rezerwacja.rezerwuj}" value="Rezerwuj"/>
+                            <f:facet name="footer" >
+                                <h:panelGroup style="display:block; text-align:center">
+                                    <p:commandButton action="#{rezerwacja.rezerwuj}" value="Rezerwuj"/>
+                                </h:panelGroup>
+                            </f:facet>
                         </h:panelGrid>
-                        <h:messages globalOnly="true"/>
                     </h:form>
                 </div>
             </ui:define>

@@ -1,4 +1,4 @@
-package spring.db;
+package db;
 
 import java.util.List;
 import javax.ejb.Stateless;

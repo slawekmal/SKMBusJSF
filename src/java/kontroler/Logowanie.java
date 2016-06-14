@@ -16,7 +16,7 @@ import javax.faces.event.ActionEvent;
 import model.Klient;
 import org.primefaces.context.RequestContext;
 import java.io.Serializable;
-import spring.db.KlientService;
+import db.KlientService;
 
 /**
  *

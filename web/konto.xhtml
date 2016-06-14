@@ -50,6 +50,11 @@
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
+                <h:form rendered="#{!logowanie.zalogowany}">
+                    <div align="center">
+                         <h2>Musisz się zalogować aby móc obejrzeć swoje konto</h2>
+                    </div>
+                </h:form>
                 <script>
                     function pageRefresh() {
                         location.reload();
